@@ -41,8 +41,8 @@ const Layout = () => {
         sx={{
           flexGrow: 1,
           width: { md: `calc(100% - ${drawerWidth}px)` },
-          height: { xs: "calc(100vh - 56px)", sm: "calc(100vh - 64px)" },
-          marginTop: { xs: "56px", sm: "64px" },
+          height: { xs: "calc(100vh - 76px)", sm: "calc(100vh - 84px)" },
+          marginTop: { xs: "76px", sm: "84px" },
         }}
       >
         <Box sx={{ overflowY: "auto", p: 2 }}>

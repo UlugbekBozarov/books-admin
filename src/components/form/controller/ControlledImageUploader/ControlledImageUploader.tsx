@@ -1,21 +1,38 @@
-import { Fragment, useState } from "react";
-import { Controller, useFormContext } from "react-hook-form";
+import { FC, Fragment, useState } from "react";
+import {
+  Controller,
+  FieldValues,
+  RegisterOptions,
+  useFormContext,
+} from "react-hook-form";
 import { Box, TextField } from "@mui/material";
+import { get } from "lodash";
 
+import { ImageSize } from "types";
 // import { uploadClient } from "services/api/file";
 
 import { Label, Error, ImageUploader, DisplayImage } from "../../components";
 
-const ControlledImageUploader = ({
-  defaultValue,
-  translationKey,
-  label,
+interface ControlledImageUploaderProps {
+  labelKey?: string;
+  accept?: string;
+  name: string;
+  rules?:
+    | Omit<
+        RegisterOptions<FieldValues, any>,
+        "valueAsNumber" | "valueAsDate" | "setValueAs" | "disabled"
+      >
+    | undefined;
+  onChange?: (image: string) => void;
+  size?: ImageSize;
+}
+
+const ControlledImageUploader: FC<ControlledImageUploaderProps> = ({
+  labelKey,
   accept = "image/png, image/jpeg, image/jpg, image/svg, image/gif",
   name = "image",
   rules = {},
   onChange,
-  width,
-  height,
   size = "medium",
   ...props
 }) => {
@@ -23,31 +40,33 @@ const ControlledImageUploader = ({
 
   const [loading, setLoading] = useState(false);
 
-  const handleChangeImage = (formChangeHandler) => (event) => {
-    setLoading(true);
-    const reader = new FileReader();
-    if (event.target.files.length) {
-      reader.readAsDataURL(event.target.files[0]);
-      // uploadClient(event.target.files[0])
-      //   .then((response) => {
-      //     formChangeHandler(response);
-      //     if (onChange) {
-      //       onChange(response);
-      //     }
-      //   })
-      //   .catch((error) => {
-      //     console.error(error);
-      //     setLoading(false);
-      //   })
-      //   .finally(() => {
-      //     setLoading(false);
-      //   });
-    }
-  };
+  const handleChangeImage =
+    (formChangeHandler: (...event: any[]) => void) => (event: any) => {
+      setLoading(true);
+      const reader = new FileReader();
+      if (event.target.files.length) {
+        reader.readAsDataURL(event.target.files[0]);
+        // uploadClient(event.target.files[0])
+        //   .then((response) => {
+        //     formChangeHandler(response);
+        //     if (onChange) {
+        //       onChange(response);
+        //     }
+        //   })
+        //   .catch((error) => {
+        //     console.error(error);
+        //     setLoading(false);
+        //   })
+        //   .finally(() => {
+        //     setLoading(false);
+        //   });
+      }
+    };
 
-  const handleDeleteImage = (formChangeHandler) => () => {
-    formChangeHandler("");
-  };
+  const handleDeleteImage =
+    (formChangeHandler: (...event: any[]) => void) => () => {
+      formChangeHandler("");
+    };
 
   return (
     <Controller
@@ -60,17 +79,14 @@ const ControlledImageUploader = ({
       }) => (
         <Fragment>
           <Label
-            htmlFor={name}
-            required={rules?.required}
-            isTranslation={!!translationKey}
+            htmlFor={`image-upload-${name}`}
+            required={!!get(rules, "required", false)}
           >
-            {translationKey || label}
+            {labelKey}
           </Label>
           <Box>
             {field?.value ? (
               <DisplayImage
-                width={width}
-                height={height}
                 handleDeleteImage={handleDeleteImage(formChangeHandler)}
                 size={size}
                 value={field?.value}
@@ -78,7 +94,7 @@ const ControlledImageUploader = ({
             ) : (
               <TextField
                 type="file"
-                id={name}
+                id={`image-upload-${name}`}
                 {...props}
                 {...field}
                 value={field?.value || ""}
@@ -89,8 +105,6 @@ const ControlledImageUploader = ({
                   inputProps: {
                     accept,
                     loading,
-                    width,
-                    height,
                     size,
                   },
                 }}
@@ -101,7 +115,6 @@ const ControlledImageUploader = ({
           <Error error={error} />
         </Fragment>
       )}
-      defaultValue={defaultValue}
     />
   );
 };

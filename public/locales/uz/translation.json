@@ -1,8 +1,15 @@
 {
   "add": "Qo'shish",
+  "cancel": "Bekor qilish",
+  "save": "Saqlash",
+  "no_data": "Ma'lumot topilmadi!",
   "username": "Foydalanuvchi nomi",
   "password": "Parol",
   "submit": "Kirish",
+  "name": "Nomi",
+  "category": "Kategoriyasi",
+  "description": "Tavsif",
+  "image": "Rasm",
   "errors": {
     "invalid_value": "Yaroqsiz qiymat",
     "min_length": "{{value}} ta belgidan kam bo'lmasligi kerak"

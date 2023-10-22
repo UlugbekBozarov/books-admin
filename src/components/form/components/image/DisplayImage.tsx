@@ -1,4 +1,8 @@
-// import { Close, Delete, RemoveRedEye } from "@mui/icons-material";
+import { FC, useState } from "react";
+import { Modal } from "@mui/material";
+
+import { ImageSize } from "types";
+
 import {
   ModalCloseButton,
   ModalContent,
@@ -7,10 +11,18 @@ import {
   StyledImage,
   StyledImageBlock,
 } from "./DisplayImage.style";
-import { useState } from "react";
-import { Modal } from "@mui/material";
 
-const DisplayImage = ({ width, height, size, value, handleDeleteImage }) => {
+interface DisplayImageProps {
+  size?: ImageSize;
+  value?: string;
+  handleDeleteImage?: () => void;
+}
+
+const DisplayImage: FC<DisplayImageProps> = ({
+  size,
+  value,
+  handleDeleteImage,
+}) => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
@@ -18,12 +30,7 @@ const DisplayImage = ({ width, height, size, value, handleDeleteImage }) => {
   const handleClose = () => setOpen(false);
 
   return (
-    <StyledImageBlock
-      width={width}
-      height={height}
-      size={size}
-      onClick={(event) => event.stopPropagation()}
-    >
+    <StyledImageBlock size={size} onClick={(event) => event.stopPropagation()}>
       {value ? (
         <StyledImage
           src={`${process.env.REACT_APP_BASE_UPLOAD_URL}/public/${value}`}

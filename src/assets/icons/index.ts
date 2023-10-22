@@ -1,4 +1,6 @@
 export { default as Add } from "./add/Add";
+export { default as Image } from "./image/Image";
+export { default as Info } from "./info/Info";
 export { default as Logout } from "./logout/Logout";
 export { default as Menu } from "./menu/Menu";
 export { default as Moon } from "./moon/Moon";

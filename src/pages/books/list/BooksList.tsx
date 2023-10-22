@@ -13,7 +13,7 @@ const BooksList = () => {
 
   return (
     <Box>
-      <Box mb="20px" mt="10px">
+      <Box mb="20px">
         <Button
           variant="contained"
           size="large"

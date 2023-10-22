@@ -1,5 +1,10 @@
 import { FC, Fragment } from "react";
-import { Controller, useFormContext } from "react-hook-form";
+import {
+  Controller,
+  FieldValues,
+  RegisterOptions,
+  useFormContext,
+} from "react-hook-form";
 import { TextField } from "@mui/material";
 import { get } from "lodash";
 
@@ -8,7 +13,13 @@ import { Label, Error } from "../../components";
 interface ControlledInputProps {
   labelKey?: string | undefined;
   name: string;
-  rules?: any;
+  rules?:
+    | Omit<
+        RegisterOptions<FieldValues, any>,
+        "valueAsNumber" | "valueAsDate" | "setValueAs" | "disabled"
+      >
+    | undefined;
+  multiline?: boolean;
   type?: "text" | "password" | undefined;
   onChange?: (value: string) => void | undefined;
 }
@@ -44,7 +55,7 @@ const ControlledInput: FC<ControlledInputProps> = ({
         <Fragment>
           <Label
             htmlFor={`input-${name}`}
-            required={get(rules, "required", false)}
+            required={!!get(rules, "required", false)}
           >
             {labelKey}
           </Label>

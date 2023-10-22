@@ -1,22 +1,32 @@
 import { forwardRef } from "react";
 import { CircularProgress } from "@mui/material";
 
+import { Image } from "assets/icons";
+import { ImageSize } from "types";
+
 import {
   StyledContainer,
   StyledImageBlock,
   StyledInput,
   UploadImageBlock,
 } from "./ImageUploader.style";
-import Image from "./Image";
+
+interface ImageUploaderProps {
+  size?: ImageSize;
+  loading?: boolean | undefined;
+  value?: string | undefined;
+  accept?: string;
+  className?: string;
+}
 
 const ImageUploader = forwardRef(
-  ({ width, height, size, loading, value = "", ...props }, ref) => {
+  ({ size, loading, value = "", ...props }: ImageUploaderProps, ref: any) => {
     return (
-      <StyledContainer width={width} height={height} size={size}>
+      <StyledContainer size={size}>
         <UploadImageBlock>
           <StyledInput ref={ref} {...props} value={value} />
         </UploadImageBlock>
-        <StyledImageBlock className={props?.className}>
+        <StyledImageBlock>
           {loading ? <CircularProgress /> : <Image />}
         </StyledImageBlock>
       </StyledContainer>

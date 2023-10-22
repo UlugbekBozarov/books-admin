@@ -6,7 +6,10 @@ import { ErrorBoundary } from "services/error";
 
 const Layout = lazy(() => import("layout/Layout"));
 const NotFound = lazy(() => import("pages/404/NotFound"));
-const Books = lazy(() => import("pages/books/Books"));
+const BooksList = lazy(() => import("pages/books/list/BooksList"));
+const BooksAddOrEdit = lazy(
+  () => import("pages/books/addOrEdit/BooksAddOrEdit")
+);
 // const Tasks = lazy(() => import("pages/tasks/Tasks"));
 // const UserInfo = lazy(() => import("pages/userInfo/UserInfo"));
 // const UserKpi = lazy(() => import("pages/userKpi/UserKpi"));
@@ -18,7 +21,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Books />,
+        element: <BooksList />,
+      },
+      {
+        path: "/add",
+        element: <BooksAddOrEdit />,
+      },
+      {
+        path: "/edit/:bookId",
+        element: <BooksAddOrEdit />,
       },
       // {
       //   path: "invoice",

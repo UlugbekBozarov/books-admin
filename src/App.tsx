@@ -48,7 +48,7 @@ function App() {
             styleOverrides: {
               root: {
                 height: "76px",
-                padding: "16px 20px 4px",
+                padding: "16px 10px 4px",
                 backgroundImage: "none",
                 backgroundColor: "transparent",
                 boxShadow: "none",
@@ -62,6 +62,16 @@ function App() {
                     mode === "light" ? "#E5EAF2" : "rgba(255, 255, 255, 0.12)",
                   borderRadius: "12px",
                 },
+                "@media(min-width: 900px)": {
+                  padding: "16px 20px 4px",
+                },
+              },
+            },
+          },
+          MuiCard: {
+            styleOverrides: {
+              root: {
+                boxShadow: "none",
               },
             },
           },
