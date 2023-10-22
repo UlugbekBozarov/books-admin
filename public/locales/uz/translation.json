@@ -1,0 +1,10 @@
+{
+  "add": "Qo'shish",
+  "username": "Foydalanuvchi nomi",
+  "password": "Parol",
+  "submit": "Kirish",
+  "errors": {
+    "invalid_value": "Yaroqsiz qiymat",
+    "min_length": "{{value}} ta belgidan kam bo'lmasligi kerak"
+  }
+}
