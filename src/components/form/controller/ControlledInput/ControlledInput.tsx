@@ -20,13 +20,13 @@ interface ControlledInputProps {
       >
     | undefined;
   multiline?: boolean;
-  type?: "text" | "password" | undefined;
+  disabled?: boolean;
+  type?: "text" | "password" | "number" | undefined;
   onChange?: (value: string) => void | undefined;
 }
 
 const ControlledInput: FC<ControlledInputProps> = ({
   labelKey,
-
   name = "custom-input",
   rules = {},
   onChange,
@@ -56,6 +56,7 @@ const ControlledInput: FC<ControlledInputProps> = ({
           <Label
             htmlFor={`input-${name}`}
             required={!!get(rules, "required", false)}
+            disabled={get(props, "disabled", false)}
           >
             {labelKey}
           </Label>

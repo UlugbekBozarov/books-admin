@@ -5,7 +5,7 @@ import { Box, Typography } from "@mui/material";
 import { NoRows } from "assets/icons";
 
 const NoData: FC<{ translationKey?: string }> = ({
-  translationKey = "no_data",
+  translationKey = "noData",
 }) => {
   return (
     <Box paddingY="20px">

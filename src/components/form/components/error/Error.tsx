@@ -18,7 +18,7 @@ const Error: FC<ErrorProps> = ({ error }) => {
         <Info />
       </Box>
       <Typography fontSize="13px" color="error" marginLeft="10px">
-        {error?.message || <Trans>errors.invalid_value</Trans>}
+        {error?.message || <Trans>errors.invalidValue</Trans>}
       </Typography>
     </StyledError>
   ) : (

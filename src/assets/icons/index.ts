@@ -1,4 +1,5 @@
 export { default as Add } from "./add/Add";
+export { default as Edit } from "./edit/Edit";
 export { default as Image } from "./image/Image";
 export { default as Info } from "./info/Info";
 export { default as Logout } from "./logout/Logout";

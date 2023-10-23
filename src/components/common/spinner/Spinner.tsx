@@ -1,10 +1,16 @@
+import { FC } from "react";
 import { Box, CircularProgress } from "@mui/material";
 
-const Spinner = () => {
+interface SpinnerProps {
+  width?: string;
+  height?: string;
+}
+
+const Spinner: FC<SpinnerProps> = ({ width = "100%", height = "100%" }) => {
   return (
     <Box
-      width="100%"
-      height="100%"
+      width={width}
+      height={height}
       display="flex"
       justifyContent="center"
       alignItems="center"

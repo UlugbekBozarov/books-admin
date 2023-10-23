@@ -1,15 +1,15 @@
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Box, useTheme } from "@mui/material";
+import { get } from "lodash";
 
 import { Navbar, Sidebar } from "./components";
-import { get } from "lodash";
+import { Spinner } from "components/common";
 
 const drawerWidth = 280;
 
 const Layout = () => {
   const theme = useTheme();
-  console.log("theme: ", theme);
 
   const [open, setOpen] = useState<boolean>(false);
 
@@ -45,8 +45,10 @@ const Layout = () => {
           marginTop: { xs: "76px", sm: "84px" },
         }}
       >
-        <Box sx={{ overflowY: "auto", p: 2 }}>
-          <Outlet />
+        <Box height="100%" sx={{ overflowY: "auto", p: 2 }}>
+          <Suspense fallback={<Spinner />}>
+            <Outlet />
+          </Suspense>
         </Box>
       </Box>
     </Box>
