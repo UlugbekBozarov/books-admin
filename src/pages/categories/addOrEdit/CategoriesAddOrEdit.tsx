@@ -55,12 +55,12 @@ const CategoriesAddOrEdit = () => {
                     name={categoryFormNames.description}
                   />
                 </Grid>
-                <Grid item xs={12}>
+                {/* <Grid item xs={12}>
                   <ControlledImageUploader
                     labelKey="image"
                     name={categoryFormNames.image}
                   />
-                </Grid>
+                </Grid> */}
               </Grid>
             </Box>
           </Card>

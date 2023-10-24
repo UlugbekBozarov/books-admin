@@ -1,4 +1,6 @@
 import { FC, Fragment } from "react";
+import { Trans, useTranslation } from "react-i18next";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Box,
   Divider,
@@ -11,14 +13,14 @@ import {
   ListSubheader,
   Toolbar,
 } from "@mui/material";
-import { Books, Category, Logout, Settings, Test, Users } from "assets/icons";
 import { get } from "lodash";
-import { Trans, useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+
+import { Books, Category, Logout, Settings, Test, Users } from "assets/icons";
 
 const DrawerContend = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const goTo = (link: string) => () => {
     switch (link) {
@@ -46,7 +48,7 @@ const DrawerContend = () => {
         {[
           {
             id: "books",
-            link: "/",
+            link: "/books",
             labelKey: "books",
             icon: <Books />,
           },
@@ -72,6 +74,7 @@ const DrawerContend = () => {
         ].map((item) => (
           <ListItem disablePadding key={get(item, "id")}>
             <ListItemButton
+              selected={location.pathname.startsWith(get(item, "link"))}
               onClick={goTo(get(item, "link"))}
               disabled={get(item, "disabled", false)}
             >

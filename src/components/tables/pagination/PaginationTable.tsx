@@ -87,11 +87,11 @@ const PaginationTable: FC<PaginationTableProps> = ({
     }
   };
 
-  const getData = () => {
+  const getData = async () => {
     if (canceledToken.current) {
       canceledToken.current();
     }
-    setData({
+    await setData({
       data: [],
       total: 0,
       status: "loading",
@@ -158,7 +158,8 @@ const PaginationTable: FC<PaginationTableProps> = ({
             </StyledStickyTableRow>
           </TableHead>
           <TableBody>
-            {get(data, "status") === "loading" ? (
+            {get(data, "status") === "loading" ||
+            get(data, "status") === "initial" ? (
               [...Array.from({ length: 10 })]?.map((_, index: number) => (
                 <TableRow key={index}>
                   {isIndexing && (

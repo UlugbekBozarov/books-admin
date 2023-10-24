@@ -35,6 +35,11 @@
     "category": "Kategoriyasi",
     "description": "Tavsif"
   },
+  "categories": {
+    "name": "Kategoriya nomi",
+    "booksCount": "Kitoblar soni",
+    "description": "Tavsif"
+  },
   "tests": {
     "subject": "Sarlavha",
     "book": "Kitob",

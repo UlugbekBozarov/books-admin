@@ -1,20 +1,25 @@
 import { Trans } from "react-i18next";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Box, Button } from "@mui/material";
+import { get } from "lodash";
 
 import { Add } from "assets/icons";
+import { PaginationTable } from "components/tables";
 
 const TestList = () => {
   const navigate = useNavigate();
-  const { bookId } = useParams();
 
   const goToAdd = () => {
     navigate(`/tests/add`);
   };
 
+  const handleRowClick = (item: any) => {
+    navigate(`/info/${get(item, "id")}`);
+  };
+
   return (
     <Box>
-      <Box mb="20px">
+      <Box id="filter-wrapper-id" pb="20px">
         <Button
           variant="contained"
           size="large"
@@ -24,7 +29,27 @@ const TestList = () => {
           <Trans>add</Trans>
         </Button>
       </Box>
-      TestList
+      <PaginationTable
+        url="posts"
+        onRowClick={handleRowClick}
+        columns={[
+          {
+            width: 400,
+            headerKey: "books.name",
+            field: "title",
+            // field: "name",
+          },
+          {
+            width: 200,
+            headerKey: "books.category",
+            field: "category.name",
+          },
+          {
+            headerKey: "books.description",
+            field: "description",
+          },
+        ]}
+      />
     </Box>
   );
 };

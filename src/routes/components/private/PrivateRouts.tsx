@@ -48,35 +48,35 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: "",
+        path: "/books",
         element: <BooksList />,
       },
       {
-        path: "/add",
+        path: "/books/add",
         element: <BooksAddOrEdit />,
       },
       // {
-      //   path: "/info/:bookId",
+      //   path: "/books/info/:bookId",
       //   element: <BooksAddOrEdit />,
       // },
       {
-        path: "/edit/:bookId",
+        path: "/books/edit/:bookId",
         element: <BooksAddOrEdit />,
       },
       {
-        path: "/:bookId/topic",
+        path: "/books/:bookId/topic",
         element: <TopicList />,
       },
       {
-        path: "/:bookId/topic/add",
+        path: "/books/:bookId/topic/add",
         element: <TopicAddOrEdit />,
       },
       // {
-      //   path: "/:bookId/topic/info/:topicId",
+      //   path: "/books/:bookId/topic/info/:topicId",
       //   element: <TopicInfo />,
       // },
       {
-        path: "/:bookId/topic/edit/:topicId",
+        path: "/books/:bookId/topic/edit/:topicId",
         element: <TopicAddOrEdit />,
       },
       {
