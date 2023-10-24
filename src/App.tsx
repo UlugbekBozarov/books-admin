@@ -75,6 +75,15 @@ function App() {
               },
             },
           },
+          MuiTableCell: {
+            styleOverrides: {
+              root: {
+                "&.MuiTableCell-head": {
+                  fontWeight: 600,
+                },
+              },
+            },
+          },
         },
       })}
     >

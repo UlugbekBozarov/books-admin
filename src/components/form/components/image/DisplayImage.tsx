@@ -11,17 +11,20 @@ import {
   StyledImage,
   StyledImageBlock,
 } from "./DisplayImage.style";
+import { Close, Delete, Eye } from "assets/icons";
 
 interface DisplayImageProps {
-  size?: ImageSize;
+  size?: ImageSize | number;
   value?: string;
   handleDeleteImage?: () => void;
+  alt?: string;
 }
 
 const DisplayImage: FC<DisplayImageProps> = ({
   size,
   value,
   handleDeleteImage,
+  alt,
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -33,8 +36,9 @@ const DisplayImage: FC<DisplayImageProps> = ({
     <StyledImageBlock size={size} onClick={(event) => event.stopPropagation()}>
       {value ? (
         <StyledImage
-          src={`${process.env.REACT_APP_BASE_UPLOAD_URL}/public/${value}`}
-          alt={value}
+          src={`${value}`}
+          // src={`${process.env.REACT_APP_BASE_UPLOAD_URL}/public/${value}`}
+          alt={alt || value}
         />
       ) : (
         <svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -53,19 +57,20 @@ const DisplayImage: FC<DisplayImageProps> = ({
       <Modal open={open} onClose={handleClose}>
         <ModalContent onClick={handleClose}>
           <StyledImage
-            src={`${process.env.REACT_APP_BASE_UPLOAD_URL}/public/${value}`}
+            src={`${value}`}
+            // src={`${process.env.REACT_APP_BASE_UPLOAD_URL}/public/${value}`}
             onClick={(event) => event?.stopPropagation()}
-            alt={value}
+            alt={alt || value}
           />
           <ModalCloseButton onClick={handleClose}>
-            {/* <Close color="#000" /> */}
+            <Close />
           </ModalCloseButton>
         </ModalContent>
       </Modal>
       <StyledIconButtonBlock isDelete={!!handleDeleteImage}>
         {value ? (
-          <StyledIconButton onClick={handleOpen} size={size}>
-            {/* <RemoveRedEye color="white" /> */}
+          <StyledIconButton onClick={handleOpen}>
+            <Eye />
           </StyledIconButton>
         ) : (
           ""
@@ -73,10 +78,9 @@ const DisplayImage: FC<DisplayImageProps> = ({
         {!!handleDeleteImage && (
           <StyledIconButton
             onClick={handleDeleteImage}
-            size={size}
             sx={{ marginLeft: "5px" }}
           >
-            {/* <Delete color="error" /> */}
+            <Delete />
           </StyledIconButton>
         )}
       </StyledIconButtonBlock>

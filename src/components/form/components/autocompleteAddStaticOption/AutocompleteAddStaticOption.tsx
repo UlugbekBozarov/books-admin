@@ -63,7 +63,6 @@ const AutocompleteAddStaticOption = forwardRef(
     }: AutocompleteAddStaticOptionProps,
     ref: any
   ) => {
-    console.log("options: ", options);
     const { t } = useTranslation();
 
     return (

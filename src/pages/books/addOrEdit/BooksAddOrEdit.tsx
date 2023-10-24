@@ -8,6 +8,7 @@ import {
   ControlledImageUploader,
   ControlledInput,
 } from "components/form";
+import { SubmitButtons } from "components/common";
 
 const booksFormNames = {
   name: "name",
@@ -75,16 +76,7 @@ const BooksAddOrEdit = () => {
               </Grid>
             </Box>
           </Card>
-          <Box mt="20px">
-            <Stack direction="row" justifyContent="flex-end" spacing={1}>
-              <Button variant="outlined" onClick={handleGoBack}>
-                <Trans>cancel</Trans>
-              </Button>
-              <Button type="submit" variant="contained">
-                <Trans>save</Trans>
-              </Button>
-            </Stack>
-          </Box>
+          <SubmitButtons />
         </Box>
       </form>
     </FormProvider>

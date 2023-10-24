@@ -13,7 +13,28 @@
   "bookName": "Kitob nomi",
   "topic": "Sarlavha",
   "testSubject": "Test sarlavhasi",
-  "books": {},
+  "navbar": {
+    "user": {
+      "profile": "Profil",
+      "logout": "Chiqish"
+    }
+  },
+  "sidebar": {
+    "mainMenu": "Asosiy menu",
+    "preference": "Afzalliklar",
+    "books": "Kitoblar",
+    "categories": "Kategoriyalar",
+    "tests": "Testlar",
+    "users": "Foydalanuvchilar",
+    "settings": "Sozlamalar",
+    "logout": "Chiqish"
+  },
+  "books": {
+    "image": "Rasm",
+    "name": "Kitob nomi",
+    "category": "Kategoriyasi",
+    "description": "Tavsif"
+  },
   "tests": {
     "subject": "Sarlavha",
     "book": "Kitob",
@@ -21,7 +42,7 @@
     "duration": "Davomiyligi"
   },
   "errors": {
-    "invalid_value": "Yaroqsiz qiymat",
+    "invalidValue": "Yaroqsiz qiymat",
     "minLength": "{{value}} ta belgidan kam bo'lmasligi kerak"
   }
 }

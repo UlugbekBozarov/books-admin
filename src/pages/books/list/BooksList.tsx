@@ -1,8 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { Trans } from "react-i18next";
 import { Box, Button } from "@mui/material";
+import { get } from "lodash";
 
 import { Add } from "assets/icons";
+import { PaginationTable } from "components/tables";
+import { DisplayImage } from "components/form";
 
 const BooksList = () => {
   const navigate = useNavigate();
@@ -11,9 +14,13 @@ const BooksList = () => {
     navigate("/add");
   };
 
+  const handleRowClick = (item: any) => {
+    navigate(`/info/${get(item, "id")}`);
+  };
+
   return (
     <Box>
-      <Box mb="20px">
+      <Box id="filter-wrapper-id" pb="20px">
         <Button
           variant="contained"
           size="large"
@@ -23,7 +30,41 @@ const BooksList = () => {
           <Trans>add</Trans>
         </Button>
       </Box>
-      BooksList
+      <PaginationTable
+        url="posts"
+        onRowClick={handleRowClick}
+        columns={[
+          {
+            width: 50,
+            type: "image",
+            headerKey: "books.image",
+            renderComponent: (data) => (
+              <Box p={1}>
+                <DisplayImage
+                  size={44}
+                  value={get(data, "image")}
+                  alt={get(data, "name")}
+                />
+              </Box>
+            ),
+          },
+          {
+            width: 400,
+            headerKey: "books.name",
+            field: "title",
+            // field: "name",
+          },
+          {
+            width: 200,
+            headerKey: "books.category",
+            field: "category.name",
+          },
+          {
+            headerKey: "books.description",
+            field: "description",
+          },
+        ]}
+      />
     </Box>
   );
 };

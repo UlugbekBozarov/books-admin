@@ -22,7 +22,6 @@ const Language = () => {
   };
 
   const handleCloseUserMenu = (item: string) => () => {
-    // console.log("item: ", item);
     setAnchorElLanguage(null);
   };
 

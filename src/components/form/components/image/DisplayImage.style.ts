@@ -4,10 +4,24 @@ import { ImageSize } from "types";
 
 export const StyledImageBlock = styled("div", {
   shouldForwardProp: (prop) => prop !== "size",
-})<{ size?: ImageSize }>(({ theme, size }) => ({
+})<{ size?: ImageSize | number }>(({ theme, size }) => ({
   position: "relative",
-  width: size === "small" ? "80px" : size === "medium" ? "100px" : "120px",
-  height: size === "small" ? "80px" : size === "medium" ? "100px" : "120px",
+  width:
+    typeof size === "number"
+      ? `${size}px`
+      : size === "small"
+      ? "80px"
+      : size === "medium"
+      ? "100px"
+      : "120px",
+  height:
+    typeof size === "number"
+      ? `${size}px`
+      : size === "small"
+      ? "80px"
+      : size === "medium"
+      ? "100px"
+      : "120px",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",

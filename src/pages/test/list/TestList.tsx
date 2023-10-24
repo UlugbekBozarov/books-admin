@@ -9,7 +9,7 @@ const TestList = () => {
   const { bookId } = useParams();
 
   const goToAdd = () => {
-    navigate(`/test/add`);
+    navigate(`/tests/add`);
   };
 
   return (

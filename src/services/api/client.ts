@@ -1,10 +1,10 @@
-import axios from "axios";
 import { get } from "lodash";
+import axios from "axios";
 
 import { getAuthorizationToken, getLanguage } from "../storage/custom";
 
 const client = axios.create({
-  baseURL: `${process.env.REACT_APP_BASE_TEST_URL}/back-api/admin/`,
+  baseURL: `${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_BASE_PATH_URL}`,
   timeout: 60000,
   headers: {
     "Content-Type": "application/json",
@@ -19,7 +19,7 @@ const client = axios.create({
 client.interceptors.request.use(
   (config) => {
     if (window.location.origin.includes("localhost")) {
-      config.headers.username = "dev";
+      // config.headers.username = "dev";
     }
     return config;
   },
@@ -30,7 +30,7 @@ client.interceptors.request.use(
 
 client.interceptors.response.use(
   (response) => {
-    return get(response, "data");
+    return response;
   },
   (error) => {
     return Promise.reject(error?.response?.data);

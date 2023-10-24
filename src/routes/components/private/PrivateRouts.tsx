@@ -13,6 +13,14 @@ const BooksAddOrEdit = lazy(
   () => import("pages/books/addOrEdit/BooksAddOrEdit")
 );
 
+// Categories
+const CategoriesList = lazy(
+  () => import("pages/categories/list/CategoriesList")
+);
+const CategoriesAddOrEdit = lazy(
+  () => import("pages/categories/addOrEdit/CategoriesAddOrEdit")
+);
+
 // Topics
 const TopicList = lazy(() => import("pages/topic/list/TopicList"));
 const TopicAddOrEdit = lazy(
@@ -22,6 +30,17 @@ const TopicAddOrEdit = lazy(
 // Test
 const TestList = lazy(() => import("pages/test/list/TestList"));
 const TestAddOrEdit = lazy(() => import("pages/test/addOrEdit/TestAddOrEdit"));
+
+// Settings
+const Settings = lazy(() => import("pages/settings/Settings"));
+
+// Language
+const LanguagesList = lazy(
+  () => import("pages/settings/language/list/LanguagesList")
+);
+const LanguageAddOrEdit = lazy(
+  () => import("pages/settings/language/addOrEdit/LanguageAddOrEdit")
+);
 
 const router = createBrowserRouter([
   {
@@ -61,7 +80,19 @@ const router = createBrowserRouter([
         element: <TopicAddOrEdit />,
       },
       {
-        path: "/test",
+        path: "/categories",
+        element: <CategoriesList />,
+      },
+      {
+        path: "/categories/add",
+        element: <CategoriesAddOrEdit />,
+      },
+      {
+        path: "/categories/edit/:categoryId",
+        element: <CategoriesAddOrEdit />,
+      },
+      {
+        path: "/tests",
         element: <TestList />,
       },
       // {
@@ -69,29 +100,29 @@ const router = createBrowserRouter([
       //   element: <TestInfo />,
       // },
       {
-        path: "/test/add",
+        path: "/tests/add",
         element: <TestAddOrEdit />,
       },
       {
-        path: "/test/edit/:testId",
+        path: "/tests/edit/:testId",
         element: <TestAddOrEdit />,
       },
-      // {
-      //   path: "employees",
-      //   element: <Employees />,
-      // },
-      // {
-      //   path: "tasks",
-      //   element: <Tasks />,
-      // },
-      // {
-      //   path: "user-info",
-      //   element: <UserInfo />,
-      // },
-      // {
-      //   path: "user-kpi",
-      //   element: <UserKpi />,
-      // },
+      {
+        path: "settings",
+        element: <Settings />,
+      },
+      {
+        path: "settings/languages",
+        element: <LanguagesList />,
+      },
+      {
+        path: "settings/languages/add",
+        element: <LanguageAddOrEdit />,
+      },
+      {
+        path: "settings/languages/edit/:languageId",
+        element: <LanguageAddOrEdit />,
+      },
       {
         path: "*",
         element: <NotFound />,

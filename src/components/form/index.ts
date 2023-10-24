@@ -1,4 +1,5 @@
 //  Components
+export { DisplayImage } from "./components";
 export { NoData } from "./components";
 
 // Controller

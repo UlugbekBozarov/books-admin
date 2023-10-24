@@ -4,7 +4,6 @@ const useApp = () => {
   const [mode, setMode] = useState<"light" | "dark">("light");
 
   const handleChangeMode = () => {
-    console.log("Change mode:");
     setMode((prev) => {
       if (prev === "light") {
         return "dark";

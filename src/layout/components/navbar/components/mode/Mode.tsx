@@ -11,7 +11,6 @@ const Mode = () => {
     state: { mode },
     actions: { handleChangeMode },
   } = useContext<any>(AppContext);
-  console.log("mode: ", mode);
 
   return (
     <Box mr="10px">

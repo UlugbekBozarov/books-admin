@@ -1,4 +1,4 @@
-import { useState, MouseEvent } from "react";
+import { useState, MouseEvent, ReactNode } from "react";
 import { Trans } from "react-i18next";
 import {
   Avatar,
@@ -11,27 +11,35 @@ import {
   useTheme,
 } from "@mui/material";
 import { get } from "lodash";
+import { Logout, User, UserTick } from "assets/icons";
+import { useNavigate } from "react-router-dom";
 
 interface SettingsItemType {
   id: string;
+  icon: ReactNode;
   labelKey: string;
-  to: string;
+  link: string;
+  disabled?: boolean;
 }
 
-const settings: Array<SettingsItemType> = [
+const users: Array<SettingsItemType> = [
   {
     id: "profile",
-    to: "/profile",
+    icon: <UserTick />,
+    link: "/profile",
+    disabled: true,
     labelKey: "profile",
   },
   {
     id: "logout",
-    to: "/",
+    icon: <Logout />,
+    link: "logout",
     labelKey: "logout",
   },
 ];
 
 const Users = () => {
+  const navigate = useNavigate();
   const theme = useTheme();
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
@@ -45,7 +53,14 @@ const Users = () => {
   };
 
   const handleCloseUserMenu = (item: SettingsItemType) => () => {
-    console.log("item: ", item);
+    switch (get(item, "link")) {
+      case "logout": {
+        break;
+      }
+      default: {
+        navigate(get(item, "link"));
+      }
+    }
     setAnchorElUser(null);
   };
 
@@ -76,14 +91,27 @@ const Users = () => {
         open={Boolean(anchorElUser)}
         onClose={handleClose}
       >
-        {settings.map((setting) => (
+        {users?.map((user) => (
           <MenuItem
-            onClick={handleCloseUserMenu(setting)}
-            key={get(setting, "id")}
+            onClick={handleCloseUserMenu(user)}
+            disabled={get(user, "disabled", false)}
+            key={get(user, "id")}
           >
-            <Typography textAlign="center">
-              <Trans>{get(setting, "labelKey")}</Trans>
-            </Typography>
+            <Box display="flex" alignItems="center">
+              <Box
+                width="24px"
+                height="24px"
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                mr="7px"
+              >
+                {get(user, "icon", "")}
+              </Box>
+              <Typography textAlign="center">
+                <Trans>navbar.user.{get(user, "labelKey")}</Trans>
+              </Typography>
+            </Box>
           </MenuItem>
         ))}
       </Menu>
