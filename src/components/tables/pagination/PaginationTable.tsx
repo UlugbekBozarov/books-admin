@@ -1,13 +1,12 @@
 import {
   FC,
   ReactNode,
-  useEffect,
   useLayoutEffect,
   useMemo,
   useRef,
   useState,
 } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   Box,
@@ -21,6 +20,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { get } from "lodash";
+import axios from "axios";
 
 import { IStatus } from "types";
 import { NoData } from "components/form";
@@ -29,8 +29,6 @@ import { client } from "services/api";
 
 import { TablePagingRow } from "../components";
 import { StyledStickyTableRow } from "./PaginationTable.style";
-import axios from "axios";
-import { REQUEST_STATUSES } from "constants/Request.constants";
 
 interface IColumn {
   headerKey?: string;
@@ -38,6 +36,7 @@ interface IColumn {
   header?: string;
   field?: string;
   width?: number;
+  defaultValue?: string | number | undefined;
   renderComponent?: (data: any, index: number) => string | ReactNode;
 }
 
@@ -46,6 +45,10 @@ interface PaginationTableProps {
   dataKey?: string;
   filterContentId?: string;
   url: string;
+  paramFields?: Array<{
+    key: string;
+    field: string;
+  }>;
   onRowClick?: (item: any) => void;
   columns?: Array<IColumn>;
 }
@@ -56,10 +59,25 @@ const PaginationTable: FC<PaginationTableProps> = ({
   filterContentId = "filter-wrapper-id",
   url,
   onRowClick,
+  paramFields = [],
   columns,
 }) => {
-  const location = useLocation();
   const { t } = useTranslation();
+
+  const location = useLocation();
+  let [searchParams] = useSearchParams();
+
+  const params = useMemo(
+    () =>
+      paramFields?.reduce(
+        (allParams, param) => ({
+          ...allParams,
+          [param.key]: searchParams.get(param.field),
+        }),
+        {}
+      ),
+    [searchParams, paramFields]
+  );
 
   const { height } = useResize(filterContentId);
 
@@ -98,6 +116,7 @@ const PaginationTable: FC<PaginationTableProps> = ({
     });
     client
       .get(url, {
+        params,
         cancelToken: new CancelToken(async function executor(token) {
           canceledToken.current = token;
         }),
@@ -105,8 +124,8 @@ const PaginationTable: FC<PaginationTableProps> = ({
       .then((response) => {
         setTimeout(() => {
           setData({
-            data: get(response, "data", []),
-            total: get(response, "data.length", 0),
+            data: get(response, "content", []),
+            total: get(response, "totalElements", 0),
             status: "success",
           });
         });
@@ -123,7 +142,6 @@ const PaginationTable: FC<PaginationTableProps> = ({
   };
 
   useLayoutEffect(() => {
-    console.log("Rendering");
     getData();
   }, [location]);
 
@@ -198,7 +216,7 @@ const PaginationTable: FC<PaginationTableProps> = ({
                       {renderComponent
                         ? renderComponent(item, index)
                         : column?.field
-                        ? get(item, column?.field, "")
+                        ? get(item, column?.field, column?.defaultValue)
                         : ""}
                     </TableCell>
                   ))}
@@ -214,7 +232,7 @@ const PaginationTable: FC<PaginationTableProps> = ({
           </TableBody>
           <TableFooter>
             <TablePagingRow
-              dataLength={get(data, "data.length")}
+              dataLength={get(data, "total")}
               colSpan={cellLength}
             />
           </TableFooter>

@@ -30,7 +30,7 @@ client.interceptors.request.use(
 
 client.interceptors.response.use(
   (response) => {
-    return response;
+    return get(response, "data");
   },
   (error) => {
     return Promise.reject(error?.response?.data);

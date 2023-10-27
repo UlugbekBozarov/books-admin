@@ -14,7 +14,7 @@ const CategoriesList = () => {
   };
 
   const handleRowClick = (item: any) => {
-    navigate(`/category/info/${get(item, "id")}`);
+    navigate(`/categories/edit/${get(item, "id")}`);
   };
 
   return (
@@ -30,14 +30,23 @@ const CategoriesList = () => {
         </Button>
       </Box>
       <PaginationTable
-        url="posts"
+        url="categories"
         onRowClick={handleRowClick}
+        paramFields={[
+          {
+            key: "page",
+            field: "page",
+          },
+          {
+            key: "limit",
+            field: "limit",
+          },
+        ]}
         columns={[
           {
             width: 400,
             headerKey: "categories.name",
-            field: "title",
-            // field: "name",
+            field: "name",
           },
           {
             headerKey: "categories.description",
@@ -46,7 +55,7 @@ const CategoriesList = () => {
           {
             width: 150,
             headerKey: "categories.booksCount",
-            field: "category.name",
+            field: "booksCount",
           },
         ]}
       />

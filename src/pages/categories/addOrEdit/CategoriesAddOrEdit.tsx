@@ -1,38 +1,81 @@
 import { Trans } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import { Box, Button, Card, Grid, Stack } from "@mui/material";
+import { get } from "lodash";
 
-import { ControlledImageUploader, ControlledInput } from "components/form";
+import { ControlledInput } from "components/form";
+import { client } from "services/api";
+import { useEffect } from "react";
+import { SubmitButtons } from "components/common";
 
 const categoryFormNames = {
   name: "name",
-  category: "category_id",
   description: "description",
-  image: "image",
 };
 
 const CategoriesAddOrEdit = () => {
   const navigate = useNavigate();
+  const { categoryId } = useParams();
 
   const formStore = useForm({
     defaultValues: {
       [categoryFormNames.name]: "",
-      [categoryFormNames.category]: null,
-      [categoryFormNames.description]: "",
-      [categoryFormNames.image]: undefined,
     },
   });
 
-  const { handleSubmit } = formStore;
+  const { handleSubmit, reset } = formStore;
 
   const handleGoBack = () => {
     navigate(-1);
   };
 
+  const getCategoryData = () => {
+    client.get(`categories/by-id/${categoryId}`).then((response) => {
+      reset({
+        [categoryFormNames.name]: get(
+          response,
+          `data.${categoryFormNames.name}`
+        ),
+        [categoryFormNames.description]: get(
+          response,
+          `data.${categoryFormNames.description}`
+        ),
+      });
+    });
+  };
+
+  const handleDeleteCategory = () => {
+    client.delete(`categories/${categoryId}`).then(() => {
+      navigate(-1);
+    });
+  };
+
   const submitHandler = handleSubmit((data) => {
-    console.log("Data: ", data);
+    client[categoryId ? "put" : "post"](
+      `categories${categoryId ? `/${categoryId}` : ""}`,
+      {
+        [categoryFormNames.name]: get(data, categoryFormNames.name),
+        [categoryFormNames.description]: get(
+          data,
+          categoryFormNames.description
+        ),
+      }
+    )
+      .then((response) => {
+        navigate(-1);
+        // console.log("Response: ", response);
+      })
+      .catch((error) => {
+        console.log("Error: ", error);
+      });
   });
+
+  useEffect(() => {
+    if (categoryId) {
+      getCategoryData();
+    }
+  }, []);
 
   return (
     <FormProvider {...formStore}>
@@ -64,16 +107,9 @@ const CategoriesAddOrEdit = () => {
               </Grid>
             </Box>
           </Card>
-          <Box mt="20px">
-            <Stack direction="row" justifyContent="flex-end" spacing={1}>
-              <Button variant="outlined" onClick={handleGoBack}>
-                <Trans>cancel</Trans>
-              </Button>
-              <Button type="submit" variant="contained">
-                <Trans>save</Trans>
-              </Button>
-            </Stack>
-          </Box>
+          <SubmitButtons
+            handleDelete={categoryId ? handleDeleteCategory : undefined}
+          />
         </Box>
       </form>
     </FormProvider>

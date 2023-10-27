@@ -1,7 +1,8 @@
-import { useNavigate } from "react-router-dom";
-import { Trans } from "react-i18next";
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
-import { Box, Button, Card, Grid, Stack } from "@mui/material";
+import { Box, Card, Grid } from "@mui/material";
+import { get } from "lodash";
 
 import {
   ControlledAutocompleteWithUrl,
@@ -9,6 +10,7 @@ import {
   ControlledInput,
 } from "components/form";
 import { SubmitButtons } from "components/common";
+import { client } from "services/api";
 
 const booksFormNames = {
   name: "name",
@@ -19,25 +21,65 @@ const booksFormNames = {
 
 const BooksAddOrEdit = () => {
   const navigate = useNavigate();
+  const { bookId } = useParams();
 
   const formStore = useForm({
     defaultValues: {
       [booksFormNames.name]: "",
       [booksFormNames.category]: null,
-      [booksFormNames.description]: "",
       [booksFormNames.image]: undefined,
     },
   });
 
-  const { handleSubmit } = formStore;
+  const { handleSubmit, reset } = formStore;
 
-  const handleGoBack = () => {
-    navigate(-1);
+  const getBookById = () => {
+    try {
+      client
+        .get(`books/by-id/${bookId}`)
+        .then((response) => {
+          reset({
+            [booksFormNames.name]: get(response, booksFormNames.name),
+            [booksFormNames.category]: get(response, "category", null),
+            [booksFormNames.image]: get(response, booksFormNames.image),
+            [booksFormNames.description]: get(
+              response,
+              booksFormNames.description
+            ),
+          });
+        })
+        .catch((error) => {
+          console.log("Error: ", error);
+        });
+    } catch (error) {
+      console.log("Error: ", error);
+    }
   };
 
   const submitHandler = handleSubmit((data) => {
-    console.log("Data: ", data);
+    try {
+      client[bookId ? "put" : "post"](`books${bookId ? `/${bookId}` : ""}`, {
+        name: get(data, "name"),
+        categoryId: get(data, `${booksFormNames.category}.id`),
+        description: get(data, "description"),
+        image: get(data, "image"),
+      })
+        .then(() => {
+          navigate(-1);
+        })
+        .catch((error) => {
+          console.log("Error client catch: ", error);
+        });
+    } catch (error) {
+      console.log("Error: ", error);
+    }
   });
+
+  useEffect(() => {
+    if (bookId) {
+      getBookById();
+    }
+  }, []);
 
   return (
     <FormProvider {...formStore}>
@@ -56,7 +98,7 @@ const BooksAddOrEdit = () => {
                 <Grid item xs={12} sm={6}>
                   <ControlledAutocompleteWithUrl
                     labelKey="category"
-                    url=""
+                    url="categories"
                     name={booksFormNames.category}
                   />
                 </Grid>

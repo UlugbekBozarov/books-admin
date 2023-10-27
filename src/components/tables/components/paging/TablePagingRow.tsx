@@ -64,6 +64,7 @@ const TablePagingRow: FC<TablePagingRowProps> = ({
     } else {
       searchParams.set("limit", String(get(event, "target.value")));
     }
+    searchParams.delete("page");
     setSearchParams(searchParams, { replace: true });
   };
 

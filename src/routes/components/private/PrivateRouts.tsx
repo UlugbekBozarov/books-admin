@@ -9,6 +9,7 @@ const NotFound = lazy(() => import("pages/404/NotFound"));
 
 // Books
 const BooksList = lazy(() => import("pages/books/list/BooksList"));
+const BooksInfo = lazy(() => import("pages/books/info/BooksInfo"));
 const BooksAddOrEdit = lazy(
   () => import("pages/books/addOrEdit/BooksAddOrEdit")
 );
@@ -55,10 +56,10 @@ const router = createBrowserRouter([
         path: "/books/add",
         element: <BooksAddOrEdit />,
       },
-      // {
-      //   path: "/books/info/:bookId",
-      //   element: <BooksAddOrEdit />,
-      // },
+      {
+        path: "/books/info/:bookId",
+        element: <BooksInfo />,
+      },
       {
         path: "/books/edit/:bookId",
         element: <BooksAddOrEdit />,

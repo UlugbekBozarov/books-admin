@@ -11,11 +11,11 @@ const BooksList = () => {
   const navigate = useNavigate();
 
   const goToAdd = () => {
-    navigate("/add");
+    navigate("/books/add");
   };
 
   const handleRowClick = (item: any) => {
-    navigate(`/info/${get(item, "id")}`);
+    navigate(`/books/info/${get(item, "id")}`);
   };
 
   return (
@@ -31,7 +31,21 @@ const BooksList = () => {
         </Button>
       </Box>
       <PaginationTable
-        url="posts"
+        url="books"
+        paramFields={[
+          {
+            key: "page",
+            field: "page",
+          },
+          {
+            key: "limit",
+            field: "limit",
+          },
+          {
+            key: "search",
+            field: "search",
+          },
+        ]}
         onRowClick={handleRowClick}
         columns={[
           {
@@ -51,8 +65,7 @@ const BooksList = () => {
           {
             width: 400,
             headerKey: "books.name",
-            field: "title",
-            // field: "name",
+            field: "name",
           },
           {
             width: 200,

@@ -1,7 +1,10 @@
 {
   "add": "Qo'shish",
   "cancel": "Bekor qilish",
+  "goBack": "Ortga qaytish",
   "save": "Saqlash",
+  "edit": "Yangilash",
+  "delete": "O'chirish",
   "noData": "Ma'lumot topilmadi!",
   "username": "Foydalanuvchi nomi",
   "password": "Parol",
@@ -33,7 +36,9 @@
     "image": "Rasm",
     "name": "Kitob nomi",
     "category": "Kategoriyasi",
-    "description": "Tavsif"
+    "description": "Tavsif",
+    "addTopic": "Mavzu qo'shish",
+    "topics": "Mundarija"
   },
   "categories": {
     "name": "Kategoriya nomi",

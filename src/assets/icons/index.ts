@@ -1,8 +1,13 @@
 export { default as Add } from "./add/Add";
+export { default as ArrowDown } from "./arrow/ArrowDown";
+export { default as ArrowUp } from "./arrow/ArrowUp";
 export { default as Books } from "./books/Books";
 export { default as Category } from "./category/Category";
+export { default as ChevronLeft } from "./chevron/ChevronLeft";
+export { default as ChevronRight } from "./chevron/ChevronRight";
 export { default as Close } from "./close/Close";
 export { default as Delete } from "./delete/Delete";
+export { default as DraggableHorizontal } from "./draggable/DraggableHorizontal";
 export { default as Edit } from "./edit/Edit";
 export { default as Eye } from "./eye/Eye";
 export { default as Home } from "./home/Home";
