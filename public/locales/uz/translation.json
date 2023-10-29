@@ -40,6 +40,9 @@
     "addTopic": "Mavzu qo'shish",
     "topics": "Mundarija"
   },
+  "topics": {
+    "content": "Kontent"
+  },
   "categories": {
     "name": "Kategoriya nomi",
     "booksCount": "Kitoblar soni",

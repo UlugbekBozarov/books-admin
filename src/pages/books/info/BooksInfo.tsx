@@ -18,7 +18,7 @@ import {
 import { get } from "lodash";
 
 import { InfoItem } from "components/common";
-import { DisplayImage } from "components/form";
+import { DisplayImage, NoData } from "components/form";
 import { client } from "services/api";
 import {
   Add,
@@ -99,6 +99,7 @@ const BooksInfo = () => {
       console.log("Error: ", error);
     }
   };
+  console.log("Topics: ", topics);
 
   const goToEdit = () => {
     navigate(`/books/edit/${bookId}`);
@@ -110,6 +111,17 @@ const BooksInfo = () => {
 
   const goToEditTopic = (topic: any) => () => {
     navigate(`/books/${bookId}/topic/edit/${get(topic, "id")}`);
+  };
+
+  const handleDelete = (topic: any) => () => {
+    client
+      .delete(`topics/${get(topic, "id")}`)
+      .then(() => {
+        getTopics();
+      })
+      .catch((error) => {
+        console.log("Error: ", error);
+      });
   };
 
   const handleDeleteBook = () => {
@@ -181,10 +193,13 @@ const BooksInfo = () => {
                   </Typography>
                 }
               >
-                {[...Array.from({ length: 10 })].map((topic) => (
-                  <Fragment>
+                {!get(topics, "loading") && !get(topics, "data.length") ? (
+                  <NoData />
+                ) : (
+                  get(topics, "data", []).map((topic: any) => (
                     <ListItemButton
                       sx={{ borderRadius: "12px", padding: "8px 4px" }}
+                      key={get(topic, "id")}
                     >
                       <ListItemIcon sx={{ minWidth: "38px" }}>
                         <IconButton disabled>
@@ -193,19 +208,19 @@ const BooksInfo = () => {
                       </ListItemIcon>
                       <ListItemText
                         id="switch-list-label-bluetooth"
-                        primary="Bluetooth"
+                        primary={get(topic, "name")}
                       />
                       <Stack direction="row" spacing={1}>
                         <IconButton onClick={goToEditTopic(topic)}>
                           <Edit color={theme.palette.primary.main} />
                         </IconButton>
-                        <IconButton>
+                        <IconButton onClick={handleDelete(topic)}>
                           <Delete color={theme.palette.error.main} />
                         </IconButton>
                       </Stack>
                     </ListItemButton>
-                  </Fragment>
-                ))}
+                  ))
+                )}
               </List>
             </Box>
           </Card>
