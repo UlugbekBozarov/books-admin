@@ -5,6 +5,7 @@ import { get } from "lodash";
 
 import { Add } from "assets/icons";
 import { PaginationTable } from "components/tables";
+import { SearchInput } from "components/filter";
 
 const TestList = () => {
   const navigate = useNavigate();
@@ -19,15 +20,25 @@ const TestList = () => {
 
   return (
     <Box>
-      <Box id="filter-wrapper-id" pb="20px">
-        <Button
-          variant="contained"
-          size="large"
-          onClick={goToAdd}
-          startIcon={<Add />}
-        >
-          <Trans>add</Trans>
-        </Button>
+      <Box
+        id="filter-wrapper-id"
+        display="flex"
+        justifyContent="space-between"
+        pb="20px"
+      >
+        <Box>
+          <Button
+            variant="contained"
+            size="large"
+            onClick={goToAdd}
+            startIcon={<Add />}
+          >
+            <Trans>add</Trans>
+          </Button>
+        </Box>
+        <Box>
+          <SearchInput />
+        </Box>
       </Box>
       <PaginationTable
         url="posts"

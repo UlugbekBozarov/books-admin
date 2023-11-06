@@ -38,7 +38,6 @@ const TopicAddOrEdit = () => {
           [topicFormNames.name]: get(response, topicFormNames.name),
           [topicFormNames.content]: get(response, topicFormNames.content),
         });
-        console.log("Response: ", response);
       })
       .catch((error) => {
         console.log("Error: ", error);
@@ -55,7 +54,6 @@ const TopicAddOrEdit = () => {
   };
 
   const submitHandler = handleSubmit((data) => {
-    console.log("Data: ", data);
     client[topicId ? "put" : "post"](`topics${topicId ? `/${topicId}` : ""}`, {
       [topicFormNames.bookId]: bookId,
       [topicFormNames.name]: get(data, topicFormNames.name),
@@ -75,7 +73,6 @@ const TopicAddOrEdit = () => {
       getTopic();
     }
   }, []);
-  console.log("Content: ", watch("content"));
 
   return (
     <FormProvider {...formStore}>

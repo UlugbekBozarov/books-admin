@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Trans } from "react-i18next";
 import {
@@ -99,7 +99,6 @@ const BooksInfo = () => {
       console.log("Error: ", error);
     }
   };
-  console.log("Topics: ", topics);
 
   const goToEdit = () => {
     navigate(`/books/edit/${bookId}`);
@@ -155,7 +154,7 @@ const BooksInfo = () => {
           <Box p={2}>
             <Grid container spacing={2} mb="20px">
               <Grid item xs={12}>
-                <DisplayImage />
+                <DisplayImage value={get(book, "data.image", "")} />
               </Grid>
               <Grid item xs={12} md={6}>
                 <InfoItem

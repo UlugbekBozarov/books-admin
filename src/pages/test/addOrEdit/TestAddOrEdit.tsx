@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Trans } from "react-i18next";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
-import { Box, Button, Card, Grid, IconButton, Stack } from "@mui/material";
+import { Box, Button, Card, Grid, Stack } from "@mui/material";
 
 import {
   ControlledAutocompleteWithUrl,
@@ -14,7 +14,7 @@ import {
   TestContent,
   VariantCard,
 } from "./TestAddOrEdit.style";
-import { Add, Edit } from "assets/icons";
+import { Edit } from "assets/icons";
 
 interface ITestVariant {
   id: string;
@@ -178,7 +178,7 @@ const TestAddOrEdit = () => {
     control,
   });
 
-  const { fields, update } = testsFields;
+  const { fields } = testsFields;
 
   const handleGoBack = () => {
     navigate(-1);
@@ -193,7 +193,6 @@ const TestAddOrEdit = () => {
           isCorrectAnswer: index === variantIndex ? true : false,
         })
       );
-      console.log("newTest: ", newTest);
       //   update(testIndex, newTest);
     };
 

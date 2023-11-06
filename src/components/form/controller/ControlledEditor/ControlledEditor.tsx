@@ -18,25 +18,20 @@ interface ControlledEditorProps {
       >
     | undefined;
   disabled?: boolean;
-  onChange?: (value: string) => void | undefined;
+  // onChange?: (value: string) => void | undefined;
 }
 
 const ControlledEditor: FC<ControlledEditorProps> = ({
   labelKey,
   name,
   rules,
-  onChange,
   ...props
 }) => {
   const { control } = useFormContext();
 
   const editorChangeHandler =
     (formChangeHandler: (...event: any[]) => void) => (value?: String) => {
-      console.log("value: ", value);
       formChangeHandler(value);
-      // if (onChange) {
-      //   onChange(value);
-      // }
     };
 
   return (

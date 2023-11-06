@@ -30,6 +30,23 @@ function App() {
         },
         shape: { borderRadius: 12 },
         components: {
+          MuiAutocomplete: {
+            styleOverrides: {
+              root: {
+                height: "43px",
+              },
+              inputRoot: {
+                height: "43px",
+                paddingTop: 0,
+                paddingBottom: 0,
+              },
+              input: {
+                height: "43px",
+                minHeight: "43px",
+                boxSizing: "border-box",
+              },
+            },
+          },
           MuiFormLabel: {
             styleOverrides: {
               root: {
@@ -80,6 +97,22 @@ function App() {
               root: {
                 "&.MuiTableCell-head": {
                   fontWeight: 600,
+                },
+              },
+            },
+          },
+          MuiTextField: {
+            styleOverrides: {
+              root: {
+                "& .MuiFormLabel-root": {
+                  transform: "translate(14px, 14px) scale(1)",
+                  "&.Mui-focused": {
+                    transform: "translate(14px, -11px) scale(1)",
+                  },
+                },
+                "& .MuiInputBase-input": {
+                  height: "43px",
+                  padding: "0 14px",
                 },
               },
             },

@@ -12,11 +12,19 @@ import {
 } from "./ImageUploader.style";
 
 interface ImageUploaderProps {
+  accept?: string;
+  autoFocus?: boolean;
+  className?: string;
+  disabled?: boolean;
+  id?: string;
+  name?: string;
+  onAnimationStart?: (event: any) => void;
+  onBlur?: (event: any) => void;
+  onChange?: (event: any, ...args: any) => void;
+  onFocus?: (event: any) => void;
   size?: ImageSize;
   loading?: boolean | undefined;
   value?: string | undefined;
-  accept?: string;
-  className?: string;
 }
 
 const ImageUploader = forwardRef(

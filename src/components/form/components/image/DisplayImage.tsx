@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import { Modal } from "@mui/material";
 
 import { ImageSize } from "types";
+import { Close, Delete, Eye } from "assets/icons";
 
 import {
   ModalCloseButton,
@@ -11,7 +12,6 @@ import {
   StyledImage,
   StyledImageBlock,
 } from "./DisplayImage.style";
-import { Close, Delete, Eye } from "assets/icons";
 
 interface DisplayImageProps {
   size?: ImageSize | number;
@@ -36,8 +36,7 @@ const DisplayImage: FC<DisplayImageProps> = ({
     <StyledImageBlock size={size} onClick={(event) => event.stopPropagation()}>
       {value ? (
         <StyledImage
-          src={`${value}`}
-          // src={`${process.env.REACT_APP_BASE_UPLOAD_URL}/public/${value}`}
+          src={`${process.env.REACT_APP_IMAGE_BASE_URL}images/${value}`}
           alt={alt || value}
         />
       ) : (
@@ -57,8 +56,7 @@ const DisplayImage: FC<DisplayImageProps> = ({
       <Modal open={open} onClose={handleClose}>
         <ModalContent onClick={handleClose}>
           <StyledImage
-            src={`${value}`}
-            // src={`${process.env.REACT_APP_BASE_UPLOAD_URL}/public/${value}`}
+            src={`${process.env.REACT_APP_IMAGE_BASE_URL}images/${value}`}
             onClick={(event) => event?.stopPropagation()}
             alt={alt || value}
           />

@@ -37,107 +37,113 @@ const DrawerContend = () => {
     <Fragment>
       <Toolbar sx={{ height: "76px" }} />
       <Divider />
-      <List
-        subheader={
-          <ListSubheader>
-            <Trans>sidebar.mainMenu</Trans>
-          </ListSubheader>
-        }
-        sx={{ height: "calc(100% - 240px)", overflowY: "auto" }}
-      >
-        {[
-          {
-            id: "books",
-            link: "/books",
-            labelKey: "books",
-            icon: <Books />,
-          },
-          {
-            id: "categories",
-            link: "/categories",
-            labelKey: "categories",
-            icon: <Category />,
-          },
-          {
-            id: "tests",
-            link: "/tests",
-            labelKey: "tests",
-            icon: <Test />,
-          },
-          {
-            id: "users",
-            link: "/users",
-            disabled: true,
-            labelKey: "users",
-            icon: <Users />,
-          },
-        ].map((item) => (
-          <ListItem disablePadding key={get(item, "id")}>
-            <ListItemButton
-              selected={location.pathname.startsWith(get(item, "link"))}
-              onClick={goTo(get(item, "link"))}
-              disabled={get(item, "disabled", false)}
-            >
-              <ListItemIcon sx={{ display: "flex", justifyContent: "center" }}>
-                <Box
-                  width="28px"
-                  height="28px"
-                  display="flex"
-                  justifyContent="center"
-                  alignItems="center"
+      <Box height="calc(100vh - 230px)" sx={{ overflowY: "auto" }}>
+        <List
+          subheader={
+            <ListSubheader>
+              <Trans>sidebar.mainMenu</Trans>
+            </ListSubheader>
+          }
+        >
+          {[
+            {
+              id: "books",
+              link: "/books",
+              labelKey: "books",
+              icon: <Books />,
+            },
+            {
+              id: "categories",
+              link: "/categories",
+              labelKey: "categories",
+              icon: <Category />,
+            },
+            {
+              id: "tests",
+              link: "/tests",
+              labelKey: "tests",
+              icon: <Test />,
+            },
+            {
+              id: "users",
+              link: "/users",
+              disabled: true,
+              labelKey: "users",
+              icon: <Users />,
+            },
+          ].map((item) => (
+            <ListItem disablePadding key={get(item, "id")}>
+              <ListItemButton
+                selected={location.pathname.startsWith(get(item, "link"))}
+                onClick={goTo(get(item, "link"))}
+                disabled={get(item, "disabled", false)}
+              >
+                <ListItemIcon
+                  sx={{ display: "flex", justifyContent: "center" }}
                 >
-                  {get(item, "icon", "")}
-                </Box>
-              </ListItemIcon>
-              <ListItemText primary={t(`sidebar.${get(item, "labelKey")}`)} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      {/* <Divider /> */}
-      <List
-        subheader={
-          <ListSubheader>
-            <Trans>sidebar.preference</Trans>
-          </ListSubheader>
-        }
-      >
-        {[
-          {
-            id: "settings",
-            disabled: true,
-            link: "/settings",
-            labelKey: "settings",
-            icon: <Settings />,
-          },
-          {
-            id: "logout",
-            link: "logout",
-            labelKey: "logout",
-            icon: <Logout />,
-          },
-        ].map((item) => (
-          <ListItem key={get(item, "id")} disablePadding>
-            <ListItemButton
-              onClick={goTo(get(item, "link"))}
-              disabled={get(item, "disabled", false)}
-            >
-              <ListItemIcon sx={{ display: "flex", justifyContent: "center" }}>
-                <Box
-                  width="28px"
-                  height="28px"
-                  display="flex"
-                  justifyContent="center"
-                  alignItems="center"
+                  <Box
+                    width="28px"
+                    height="28px"
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    {get(item, "icon", "")}
+                  </Box>
+                </ListItemIcon>
+                <ListItemText primary={t(`sidebar.${get(item, "labelKey")}`)} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Box>
+      <Box height="152px">
+        <List
+          subheader={
+            <ListSubheader>
+              <Trans>sidebar.preference</Trans>
+            </ListSubheader>
+          }
+        >
+          {[
+            {
+              id: "settings",
+              disabled: true,
+              link: "/settings",
+              labelKey: "settings",
+              icon: <Settings />,
+            },
+            {
+              id: "logout",
+              link: "logout",
+              labelKey: "logout",
+              icon: <Logout />,
+            },
+          ].map((item) => (
+            <ListItem key={get(item, "id")} disablePadding>
+              <ListItemButton
+                onClick={goTo(get(item, "link"))}
+                disabled={get(item, "disabled", false)}
+              >
+                <ListItemIcon
+                  sx={{ display: "flex", justifyContent: "center" }}
                 >
-                  {get(item, "icon", "")}
-                </Box>
-              </ListItemIcon>
-              <ListItemText primary={t(`sidebar.${get(item, "labelKey")}`)} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+                  <Box
+                    width="28px"
+                    height="28px"
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    {get(item, "icon", "")}
+                  </Box>
+                </ListItemIcon>
+                <ListItemText primary={t(`sidebar.${get(item, "labelKey")}`)} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Box>
     </Fragment>
   );
 };

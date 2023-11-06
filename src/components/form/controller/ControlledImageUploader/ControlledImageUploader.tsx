@@ -9,7 +9,6 @@ import { Box, TextField } from "@mui/material";
 import { get } from "lodash";
 
 import { ImageSize } from "types";
-// import { uploadClient } from "services/api/file";
 
 import { Label, Error, ImageUploader, DisplayImage } from "../../components";
 
@@ -42,24 +41,24 @@ const ControlledImageUploader: FC<ControlledImageUploaderProps> = ({
 
   const handleChangeImage =
     (formChangeHandler: (...event: any[]) => void) => (event: any) => {
-      setLoading(true);
-      const reader = new FileReader();
-      if (event.target.files.length) {
-        reader.readAsDataURL(event.target.files[0]);
-        // uploadClient(event.target.files[0])
-        //   .then((response) => {
-        //     formChangeHandler(response);
-        //     if (onChange) {
-        //       onChange(response);
-        //     }
-        //   })
-        //   .catch((error) => {
-        //     console.error(error);
-        //     setLoading(false);
-        //   })
-        //   .finally(() => {
-        //     setLoading(false);
-        //   });
+      const file = event.target.files[0];
+      if (file) {
+        const formData = new FormData();
+        formData.append("file", file);
+
+        fetch("http://localhost:8087/upload/api/images", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => {
+            return response?.json();
+          })
+          .then((data) => {
+            formChangeHandler(data);
+          })
+          .catch((error) => {
+            console.error("Xatolik:", error);
+          });
       }
     };
 
