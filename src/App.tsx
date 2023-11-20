@@ -106,8 +106,8 @@ function App() {
               root: {
                 "& .MuiFormLabel-root": {
                   transform: "translate(14px, 14px) scale(1)",
-                  "&.Mui-focused": {
-                    transform: "translate(14px, -11px) scale(1)",
+                  "&.MuiInputLabel-shrink": {
+                    transform: "translate(14px, -9px) scale(0.75)",
                   },
                 },
                 "& .MuiInputBase-input": {

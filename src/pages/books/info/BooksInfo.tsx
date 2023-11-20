@@ -27,6 +27,7 @@ import {
   DraggableHorizontal,
   Edit,
 } from "assets/icons";
+import TopicsList from "./TopicsList";
 
 interface BookType {
   category?: {
@@ -136,20 +137,12 @@ const BooksInfo = () => {
   useEffect(() => {
     getBooksData();
     getTopics();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} lg={8} xl={9} order={{ xs: 2, lg: 1 }}>
-        <Box mb="20px">
-          <Button
-            variant="outlined"
-            onClick={handleGoBack}
-            startIcon={<ChevronLeft color={theme.palette.primary.main} />}
-          >
-            <Trans>goBack</Trans>
-          </Button>
-        </Box>
         <Card>
           <Box p={2}>
             <Grid container spacing={2} mb="20px">
@@ -195,30 +188,34 @@ const BooksInfo = () => {
                 {!get(topics, "loading") && !get(topics, "data.length") ? (
                   <NoData />
                 ) : (
-                  get(topics, "data", []).map((topic: any) => (
-                    <ListItemButton
-                      sx={{ borderRadius: "12px", padding: "8px 4px" }}
-                      key={get(topic, "id")}
-                    >
-                      <ListItemIcon sx={{ minWidth: "38px" }}>
-                        <IconButton disabled>
-                          <DraggableHorizontal />
-                        </IconButton>
-                      </ListItemIcon>
-                      <ListItemText
-                        id="switch-list-label-bluetooth"
-                        primary={get(topic, "name")}
-                      />
-                      <Stack direction="row" spacing={1}>
-                        <IconButton onClick={goToEditTopic(topic)}>
-                          <Edit color={theme.palette.primary.main} />
-                        </IconButton>
-                        <IconButton onClick={handleDelete(topic)}>
-                          <Delete color={theme.palette.error.main} />
-                        </IconButton>
-                      </Stack>
-                    </ListItemButton>
-                  ))
+                  <TopicsList
+                    data={get(topics, "data", [])}
+                    setTopics={setTopics}
+                  />
+                  // get(topics, "data", []).map((topic: any) => (
+                  //   <ListItemButton
+                  //     sx={{ borderRadius: "12px", padding: "8px 4px" }}
+                  //     key={get(topic, "id")}
+                  //   >
+                  //     <ListItemIcon sx={{ minWidth: "38px" }}>
+                  //       <IconButton disabled>
+                  //         <DraggableHorizontal />
+                  //       </IconButton>
+                  //     </ListItemIcon>
+                  //     <ListItemText
+                  //       id="switch-list-label-bluetooth"
+                  //       primary={get(topic, "name")}
+                  //     />
+                  //     <Stack direction="row" spacing={1}>
+                  //       <IconButton onClick={goToEditTopic(topic)}>
+                  //         <Edit color={theme.palette.primary.main} />
+                  //       </IconButton>
+                  //       <IconButton onClick={handleDelete(topic)}>
+                  //         <Delete color={theme.palette.error.main} />
+                  //       </IconButton>
+                  //     </Stack>
+                  //   </ListItemButton>
+                  // ))
                 )}
               </List>
             </Box>
@@ -253,6 +250,14 @@ const BooksInfo = () => {
                 startIcon={<Delete />}
               >
                 <Trans>delete</Trans>
+              </Button>
+              <Button
+                size="large"
+                variant="outlined"
+                onClick={handleGoBack}
+                startIcon={<ChevronLeft color={theme.palette.primary.main} />}
+              >
+                <Trans>goBack</Trans>
               </Button>
             </Stack>
           </Box>
